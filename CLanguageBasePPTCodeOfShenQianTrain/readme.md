@@ -1,3 +1,4 @@
+
 文件夹内容【申嵌培训】-C语言基础篇课件例程
 
 01C语言基础       
@@ -10,4 +11,7 @@
 08函数  
 09字符串  
 10结构    
-readme.md
+
+---
+## brief - This branch and file is maintaining by *LYH*
+### warning - don't modify there file without promise of *LYH*
