@@ -1,0 +1,167 @@
+#目标
+	理解字符串常量
+	理解字符数组和字符串的异同
+	使用字符串输入/输出函数
+	使用字符串处理函数
+	理解指针与字符串的关系
+	使用字符指针数组
+	使用字符串作为函数参数
+
+##字符串简介
+
+如何让程序存储我的姓名？
+
+Wang Li
+用若干个字符：	
+	char a='W';
+	char b='a';
+	char c='n';
+	char d='g';
+	char e='L';
+	char f='i';
+
+用字符数组：
+	char name[15]={ 'W', 'a', 'n', 'g', 'L', 'i'}; 
+
+##字符串常量
+字符串常量是双引号括起的任意字符序列
+
+"Hello World"
+"WangPing"
+"Please enter your full name:" 
+"Hello \“Embed\""   //
+
+****		\0     字符串结束符
+
+ 
+##字符串与字符数组
+在Ｃ语言中没有专门的字符串变量，通常用一个字符数组来存放一个字符串
+字符数组和字符串的区别是：字符串的末尾有一个空字符 ‘\0’
+
+
+字符串可按如下方式声明并初始化：
+char name[15]={ 'W', 'a', 'n', 'g', 'L', 'i', '\0'};  //手工加入一个空字符
+
+char name[15] = "WangLi";  //系统将自动加入一个空字符
+
+char password[] = "12345678";  	//省略数组大小，系统自动计算，大小为后面的字符总数加1，最后一个元素存入一个空字符。 
+
+char *p = “12345678” //定义指针p指向字符串常量，注意字符串常量不能修改其值！
+
+
+##字符串I/0函数3-1  输入输出
+
+char name[10];
+scanf("%s", name); //使用 scanf 时，不能输入空格
+
+printf("%s", name);  //格式描述串中使用转换字符串“%s”
+
+
+
+##字符串I/0函数3-2
+char name[10];
+gets(name);  //使用 gets函数允许输入空格
+puts(name);
+
+从键盘上读入一个完整的行，存入字符数组name。并用空字符'\0'取代行尾的换行符'\n'。
+
+把字符数组中的字符串输出到显示器。
+
+
+##字符串I/0函数3-3
+
+使用puts函数输出字符串
+printf("\n 雇员姓名是: ");
+puts(name);
+printf("\n 雇员所属部门是: ");
+puts(dept);
+
+使用printf函数输出字符串
+printf("\n 雇员姓名是：%s",name);
+printf("\n 雇员所属部门是：%s\n",dept);
+
+
+puts 函数完全可以由 printf 函数取代。 当需要按一定格式输出时，通常使用 printf 函数。 
+
+
+
+
+##字符串处理函数 5-1
+
+与字符串有关的内置函数在头文件string.h中定义
+要使用标准库字符串处理函数，程序前应该包含：
+                #include <string.h>
+包括：
+	strscp
+	strcmp
+	strlen
+	strcat
+
+字符串处理函数 5-2
+
+#include <stdio.h>
+#include <string.h>
+int main()
+{
+       char arr[] = "Beijing";
+       int len1, len2;
+       len1 = strlen(arr);
+       len2 = strlen("Shanghai");
+       printf("\n string = %s length = %d", arr, len1);
+       printf("\n string = %s length = %d \n","Shanghai",len2);
+}
+
+
+// string = Beijing length = 7
+// string = Shanghai length = 8
+
+
+
+
+
+字符串与字符数组的区别是字符串的末尾有一个空字符'\0'以标识字符串结束
+用scanf()语句读入字符串时不允许输入中存在空格
+gets() 和 puts() 函数分别用于字符串的输入和输出
+在 string.h 中定义了很多字符串处理函数函数，比较常用的有：strcpy()、strcat()、strcmp() 和 strlen() 
+假如程序里需要一组字符串，一种常用的做法就是用一个字符指针数组表示它们
+字符串可以作为参数，函数传递机制同数组作为参数，为引用方式
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

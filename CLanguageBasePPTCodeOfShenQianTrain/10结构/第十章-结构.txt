@@ -1,0 +1,269 @@
+第十章  结构
+#回顾
+
+字符串与字符数组的区别是字符串的末尾有一个空字符'\0'以标识字符串结束。
+
+假如程序里需要一组字符串，一种常用的做法就是用一个字符指针数组表示它们。
+
+字符串可以作为参数，函数传递机制同数组作为参数，为传址方式。 
+
+#目标
+理解为什么使用结构
+定义结构
+声明结构变量
+访问结构成员
+掌握结构作为函数参数的用法
+
+#本章结构
+
+			-结构简介
+			-使用结构
+结构体	-结构数组
+			-结构作为函数参数
+			-实现堆栈
+
+定义结构2-1
+struct structurename     //结构名  structurename
+{
+	datatype   variable1;   //datatype   C 语言中的有效数据类型
+	datatype   variable2;  //variable1    结构成员
+	...
+};
+
+例如：
+struct student
+{
+        int num;
+        char name[20];
+        char sex;
+        float score;
+};
+
+student
+【num,name,sex,score】
+结构定义并不预留内存
+结构定义放置在程序的开始部分，位于头文件声明之后 
+结构定义仅描述了一个结构的形式。如果要在程序里使用结构，需要声明结构变量。
+
+
+I.先定义结构，再声明结构变量
+struct student
+{
+     int num;
+     char name[20];
+     char sex;
+     float score;
+};
+struct student student1,student2;//声明结构变量
+
+II.在定义结构类型的同时声明结构变量
+struct student
+{
+      int num;
+      char name[20];
+      char sex;
+      float score;
+}student1,student2;
+
+
+III. 直接声明结构变量
+struct    //这里没有结构名
+{
+       int num;
+       char name[20];
+       char sex;
+       float score;
+}student1,student2;  //声明了结构变量
+
+-声明一个类型为 student 结构的变量，将会为该变量分配内存，大小是大于或等于其所有成员变量的大小之和。 
+
+#嵌套结构
+struct date
+{
+      int month;
+      int day;
+      int year;
+};
+
+struct{
+       int num;
+       char name[20];
+       char sex;
+       struct date birthday;    //嵌套地能够以
+       float score;
+}student1,student2;
+
+表示结构变量成员的一般形式是：结构变量名.成员名  （中间有一点）
+例如：student1.num、student2.sex、student1.birthday.month
+
+#结构变量初始化
+struct student student3={3,"Yao Ming ",'M',90.5};  //一定要完整写一行
+
+赋值的顺序应与成员声明时的顺序一样；允许初始化语句中的值的数目比结构成员数目少。
+
+##结构变量赋值
+用输入语句或赋值语句来给结构变量的各个成员赋值
+student1.num=1;
+student1.name="Zhang Zi Liang";  //不能这样写
+student1.sex=’M’;
+printf("请输入成绩：\n");
+scanf("%f",&student1.score);
+
+student2 = student1; 
+
+##结构体变量的说明 
+说明
+结构体类型与结构体变量概念不同
+类型:不分配内存；              变量:分配内存
+类型:不能赋值、存取、运算;     变量:可以
+结构体可嵌套
+结构体成员名与程序中变量名可相同，不会混淆
+
+例 struct  date
+    {    int month;
+          int day;
+          int year;
+    };
+   struct  student
+  {   int  num;
+       char name[20];
+       struct  date  birthday;
+  }stu;
+
+例 struct  student
+  {   int  num;
+       char name[20];
+       struct  date 
+      {    int month;
+            int day;
+            int year;
+      }birthday;
+  }stu;
+
+
+错误写法：
+	//student2.name = "halo";  //不能这样写
+	//printf("整个作为输出  num = %s \n name = %s \n sex = %c \n score = %.1f  birthday %d, %d, %d \n", student1);// 这是错误写法
+	//student1 = {"001", "Lion", 'M', 90.0};   //单独这样写是错的
+
+
+	##结构体变量的初始化 
+
+形式一：
+struct     结构体名
+{
+      类型标识符    成员名；
+      类型标识符    成员名；
+         …………….
+}；
+struct  结构体名  结构体变量={初始数据}；
+
+例    struct  student
+        {       int num;
+                 char  name[20];
+                 char sex;
+                 int age;
+                 char addr[30];
+        }; 
+struct  student  stu1={112,“Wang Lin”,‘M’,19, “200 Beijing Road”};
+
+形式二：
+
+struct     结构体名
+{
+      类型标识符    成员名；
+      类型标识符    成员名；
+         …………….
+}结构体变量={初始数据}；
+
+例    struct  student
+        {       int num;
+                 char  name[20];
+                 char sex;
+                 int age;
+                 char addr[30];
+        }stu1={112,“Wang Lin”,‘M’,19, “200 Beijing Road”}; 
+
+形式三：
+struct
+{
+      类型标识符    成员名；
+      类型标识符    成员名；
+         …………….
+}结构体变量={初始数据}；
+
+例    struct
+        {       int num;
+                 char  name[20];
+                 char sex;
+                 int age;
+                 char addr[30];
+        }stu1={112,“Wang Lin”,‘M’,19, “200 Beijing Road”}; 
+
+
+示例：
+#结构指针变量
+
+struct student
+{
+	
+}stu={1,"张宾",'F',55},*pstu;
+
+...
+int main{
+
+ pstu=&stu;
+ ...
+ /*
+
+(*pstu).num   等价于   pstu->num
+
+ */
+}
+
+(*结构体指针名).成员名  <==> 结构体指针名->成员名  <==> 结构体变量名.成员名
+
+
+  指向结构体数组的指针
+
+##结构数组
+元素为结构类型的数组称为结构数组。
+在实际应用中，经常用结构数组来表示具有相同数据结构的一个群体。例如一个班的学员档案，一个公司的职工档案等。
+struct student
+{
+         int num;
+         char* name;
+         char sex;
+         float score;
+}stu[30];
+定义了一个结构数组stu1，共有30个元素，stu[0]～stu[29]。每个数组元素都具有struct student的结构形式。
+
+分行初始化:
+ struct  student
+      {     int  num;
+             char name[20];
+             char sex;
+             int age;
+      };
+
+      //全部初始化时维数可省
+struct  student   stu[ ]={{100,“Wang Lin”,‘M’,20},  
+                                      {101,“Li Gang”,‘M’,19},
+                                      {110,“Liu Yan”,‘F’,19}}; 
+
+
+##结构作为函数参数
+可以将结构作为参数传递给函数，也可以定义返回结构值的函数。
+
+结构作为函数参数有三种不同方法：
+	将结构成员的值传递给函数处理。
+	将整个结构作为参数值传递给函数。--把结构作为整体来处理，但作用方式和效果不同。
+	将结构指针变量做函数的参数。 --把结构作为整体来处理，但作用方式和效果不同。
+
+
+###结构成员作为函数参数
+gets(f1.name);
+       fflush(stdin);  //清空输入缓冲,读入完一个字符串后又读入的话要清空
+
+###整个结构作为参数 ：
+
